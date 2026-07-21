@@ -2,7 +2,7 @@
 
 A personal portfolio website representing my professional profile as a Computer Science graduate and software developer — built to showcase my skills, projects, experience, and certifications to potential employers and collaborators.
 
-🔗 **Live Demo:** [https://teke28.github.io/portfolio/](https://teke28.github.io/portfolio/)
+🔗 **Live Demo:** [new-portfolio-g6168zfrs-tekele.vercel.app](new-portfolio-g6168zfrs-tekele.vercel.app)
 
 ---
 
@@ -66,7 +66,7 @@ To run this project locally:
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/teke28/portfolio.git
+   git clone https://github.com/Teke28/New_Portfolio.git
    ```
 2. **Open the project folder**
    ```bash
