@@ -25,8 +25,10 @@
     
     <nav id="primary-navigation" aria-label="Primary navigation">
       <a href="#home" class="active" aria-current="page">Home</a>
-      <a href="#service">Service</a>
-      <a href="#resume">Resume</a>
+      <a href="#about" data-resume-tab="4">About</a>
+      <a href="#services">Services</a>
+      <a href="#skills" data-resume-tab="2">Skills</a>
+      <a href="#resume" data-resume-tab="0">Resume</a>
       <a href="#portfolio">Portfolio</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -100,7 +102,7 @@
     </div>
   </section>
 
- <section class="service" id="service">
+ <section class="service" id="services">
   <h2 class="heading">My <span>Services</span></h2>
 
   <div class="service-container">
@@ -279,7 +281,7 @@ Developed a Bus Management System using HTML, CSS, JavaScript, PHP, and MySQL, i
         </div>
 
         <!-- Skills Panel -->
-<div class="resume-detail skills">
+<div class="resume-detail skills" id="skills">
   <h2 class="heading">My <span>Skills</span></h2>
 
   <p class="desc">
@@ -621,7 +623,7 @@ Developed a Bus Management System using HTML, CSS, JavaScript, PHP, and MySQL, i
 </div>
 
         <!-- About Me Panel -->
-<div class="resume-detail about">
+<div class="resume-detail about" id="about">
   <h2 class="heading">About <span>Me</span></h2>
 
   <p class="desc">
@@ -917,6 +919,63 @@ Developed a Bus Management System using HTML, CSS, JavaScript, PHP, and MySQL, i
     </div>
   </section>
 
+  <footer class="site-footer" id="footer" aria-label="Site footer">
+    <div class="footer-shell">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <a href="#home" class="footer-logo" aria-label="Tekele Tesfeye Home">Tekele<span>.</span></a>
+          <p class="footer-tagline">Crafting dependable software and polished digital experiences.</p>
+          <p class="footer-availability">Available for freelance &amp; full-time opportunities.</p>
+        </div>
+
+        <nav class="footer-links" aria-label="Footer navigation">
+          <ul class="footer-quick-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#resume">Resume</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="footer-divider" aria-hidden="true"></div>
+
+      <div class="footer-bottom">
+        <div class="footer-meta">
+          <p>&copy; <span id="footer-year">2026</span> Tekele Tesfeye. All Rights Reserved.</p>
+          <p>Built with <span>HTML, CSS &amp; JavaScript</span>.</p>
+        </div>
+        <ul class="footer-social-list" aria-label="Social links">
+          <li>
+            <a href="https://github.com/Teke28" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+              <i class="bx bxl-github" aria-hidden="true"></i>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/in/tekele-tesfeye-36ba5a419" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <i class="bx bxl-linkedin-square" aria-hidden="true"></i>
+            </a>
+          </li>
+          <li>
+            <a href="https://t.me/Take2810" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+              <i class="bx bxl-telegram" aria-hidden="true"></i>
+            </a>
+          </li>
+          <li>
+            <a href="mailto:tasfeyetakele@gmail.com" aria-label="Email Tekele Tesfeye">
+              <i class="bx bx-envelope" aria-hidden="true"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <button class="back-to-top" id="back-to-top" type="button" aria-label="Back to top">
+      <i class="bx bx-up-arrow-alt" aria-hidden="true"></i>
+    </button>
+  </footer>
 
   <div class="cert-modal" id="cert-modal" role="dialog" aria-modal="true" aria-label="Certificate viewer" aria-hidden="true">
     <button type="button" class="cert-modal-close" id="cert-modal-close" aria-label="Close certificate viewer">

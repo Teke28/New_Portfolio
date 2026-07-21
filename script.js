@@ -4,10 +4,11 @@
 const navLinks = document.querySelectorAll('header nav a');
 const logoLink = document.querySelector('.logo');
 const header = document.querySelector('header');
-const barsBox = document.querySelector('.bars-box');
 const sections = document.querySelectorAll('section');
 const menuIcon = document.querySelector('#menu-icon');
 const navbar = document.querySelector('header nav');
+const resumeTabIndexes = { resume: 0, skills: 2, about: 4 };
+const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 /* ==========================================================================
    MOBILE MENU
@@ -72,23 +73,9 @@ document.addEventListener('keydown', (e) => {
    ========================================================================== */
 
 const activePage = () => {
-    header.classList.remove('active');
-    setTimeout(() => {
-        header.classList.add('active');
-    }, 1100);
-
     navLinks.forEach(link => {
         link.classList.remove('active');
         link.removeAttribute('aria-current');
-    });
-
-    barsBox.classList.remove('active');
-    setTimeout(() => {
-        barsBox.classList.add('active');
-    }, 1100);
-
-    sections.forEach(section => {
-        section.classList.remove('active');
     });
 
     closeMobileMenu();
@@ -124,6 +111,7 @@ const findLinkByHash = (hash) =>
 const activateSection = (hash, { animate = true } = {}) => {
     const targetSection = document.getElementById(hash);
     const targetLink = findLinkByHash(hash);
+    const resumeTabIndex = resumeTabIndexes[hash];
 
     // Invalid hash → fall back to Home
     if (!targetSection || !targetLink) {
@@ -137,22 +125,38 @@ const activateSection = (hash, { animate = true } = {}) => {
             link.classList.remove('active');
             link.removeAttribute('aria-current');
         });
-        sections.forEach(section => section.classList.remove('active'));
+        sections.forEach(section => section.classList.add('active'));
 
         targetLink.classList.add('active');
         targetLink.setAttribute('aria-current', 'page');
         targetSection.classList.add('active');
+        if (Number.isInteger(resumeTabIndex) && resumeBtns[resumeTabIndex]) {
+            resumeBtns[resumeTabIndex].click();
+        }
         return;
     }
 
     // Animated navigation: reset and activate with delay
     activePage();
+    sections.forEach(section => section.classList.add('active'));
     targetLink.classList.add('active');
     targetLink.setAttribute('aria-current', 'page');
 
-    setTimeout(() => {
-        targetSection.classList.add('active');
-    }, 1100);
+    targetSection.classList.add('active');
+    if (Number.isInteger(resumeTabIndex) && resumeBtns[resumeTabIndex]) {
+        resumeBtns[resumeTabIndex].click();
+    }
+};
+
+const scrollToSection = (hash, behavior) => {
+    const targetSection = document.getElementById(hash);
+    if (!targetSection) return;
+
+    const top = targetSection.getBoundingClientRect().top + window.scrollY - header.offsetHeight - 16;
+    window.scrollTo({
+        top: Math.max(top, 0),
+        behavior: behavior || (reducedMotionQuery.matches ? 'auto' : 'smooth'),
+    });
 };
 
 /* ----- Nav Link Clicks ----- */
@@ -161,13 +165,11 @@ navLinks.forEach((link) => {
         e.preventDefault();
         const hash = getHashFromLink(link);
 
-        if (link.classList.contains('active')) {
-            closeMobileMenu();
-            return;
+        if (window.location.hash !== `#${hash}`) {
+            history.pushState(null, '', `#${hash}`);
         }
-
-        history.pushState(null, '', `#${hash}`);
         activateSection(hash);
+        scrollToSection(hash);
     });
 });
 
@@ -175,24 +177,22 @@ navLinks.forEach((link) => {
 logoLink.addEventListener('click', (e) => {
     e.preventDefault();
 
-    if (findLinkByHash(DEFAULT_HASH).classList.contains('active')) {
-        closeMobileMenu();
-        return;
+    if (window.location.hash !== `#${DEFAULT_HASH}`) {
+        history.pushState(null, '', `#${DEFAULT_HASH}`);
     }
-
-    history.pushState(null, '', `#${DEFAULT_HASH}`);
     activateSection(DEFAULT_HASH);
+    scrollToSection(DEFAULT_HASH);
 });
 
 /* ----- Browser Back/Forward ----- */
 window.addEventListener('popstate', () => {
     const hash = window.location.hash.replace('#', '') || DEFAULT_HASH;
-    activateSection(hash);
+    activateSection(hash, { animate: false });
+    scrollToSection(hash, 'auto');
 });
 
 /* ----- Initial Load (Deep Linking) ----- */
 const initialHash = window.location.hash.replace('#', '') || DEFAULT_HASH;
-activateSection(initialHash, { animate: false });
 
 /* ==========================================================================
    RESUME TAB BUTTONS
@@ -200,11 +200,10 @@ activateSection(initialHash, { animate: false });
    - Accessibility: aria-pressed state sync
    ========================================================================== */
 const resumeBtns = document.querySelectorAll('.resume-btn');
+const resumeDetails = document.querySelectorAll('.resume-detail');
 
 resumeBtns.forEach((btn, idx) => {
     btn.addEventListener('click', () => {
-        const resumeDetails = document.querySelectorAll('.resume-detail');
-
         // Reset all buttons
         resumeBtns.forEach(btn => {
             btn.classList.remove('active');
@@ -220,12 +219,70 @@ resumeBtns.forEach((btn, idx) => {
             detail.classList.remove('active');
         });
         resumeDetails[idx].classList.add('active');
+        updateActiveNavOnScroll();
     });
 });
 
 /* ==========================================================================
    PORTFOLIO CAROUSEL
    ========================================================================== */
+const getActiveResumeHash = () => {
+    if (resumeDetails[resumeTabIndexes.about]?.classList.contains('active')) {
+        return 'about';
+    }
+
+    if (resumeDetails[resumeTabIndexes.skills]?.classList.contains('active')) {
+        return 'skills';
+    }
+
+    return 'resume';
+};
+
+const updateActiveNavOnScroll = () => {
+    const scrollPosition = window.scrollY + header.offsetHeight + 32;
+    let currentSection = sections[0];
+
+    sections.forEach(section => {
+        if (section.offsetTop <= scrollPosition) {
+            currentSection = section;
+        }
+    });
+
+    const hash = currentSection.id === 'resume'
+        ? getActiveResumeHash()
+        : currentSection.id;
+    const activeLink = findLinkByHash(hash);
+
+    if (!activeLink) return;
+
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        link.removeAttribute('aria-current');
+    });
+    activeLink.classList.add('active');
+    activeLink.setAttribute('aria-current', 'page');
+};
+
+let scrollTicking = false;
+window.addEventListener('scroll', () => {
+    if (scrollTicking) return;
+
+    scrollTicking = true;
+    window.requestAnimationFrame(() => {
+        updateActiveNavOnScroll();
+        scrollTicking = false;
+    });
+}, { passive: true });
+
+activateSection(initialHash, { animate: false });
+
+window.addEventListener('load', () => {
+    scrollToSection(initialHash, 'auto');
+    updateActiveNavOnScroll();
+});
+
+updateActiveNavOnScroll();
+
 const arrowRight = document.querySelector('.portfolio-box .navigation .arrow-right');
 const arrowLeft = document.querySelector('.portfolio-box .navigation .arrow-left');
 let index = 0;
@@ -459,7 +516,7 @@ if (certModal) {
     // Wire up every "View Certificate" button — this is the actual fix.
     certButtons.forEach((btn) => {
         btn.addEventListener('click', (e) => {
-            e.preventDefault(); // stop the dead href="#" navigation/new-tab
+            e.preventDefault();
             openCertModal(btn);
         });
     });
@@ -481,4 +538,57 @@ if (certModal) {
             certModalClose.focus();
         }
     });
+}
+
+/* ==========================================================================
+   FOOTER NAVIGATION AND BACK-TO-TOP BUTTON
+   ========================================================================== */
+const footerQuickLinks = document.querySelectorAll('.footer-quick-links a');
+const backToTopButton = document.getElementById('back-to-top');
+const footerYear = document.getElementById('footer-year');
+
+if (footerYear) {
+    footerYear.textContent = new Date().getFullYear();
+}
+
+footerQuickLinks.forEach(link => {
+    link.addEventListener('click', (event) => {
+        event.preventDefault();
+        const hash = getHashFromLink(link);
+
+        if (window.location.hash !== `#${hash}`) {
+            history.pushState(null, '', `#${hash}`);
+        }
+
+        activateSection(hash);
+        scrollToSection(hash);
+    });
+});
+
+if (backToTopButton) {
+    const updateBackToTopVisibility = () => {
+        backToTopButton.classList.toggle('is-visible', window.scrollY > window.innerHeight * 0.75);
+    };
+
+    let backToTopTicking = false;
+    window.addEventListener('scroll', () => {
+        if (backToTopTicking) return;
+
+        backToTopTicking = true;
+        window.requestAnimationFrame(() => {
+            updateBackToTopVisibility();
+            backToTopTicking = false;
+        });
+    }, { passive: true });
+
+    backToTopButton.addEventListener('click', () => {
+        if (window.location.hash !== `#${DEFAULT_HASH}`) {
+            history.pushState(null, '', `#${DEFAULT_HASH}`);
+        }
+
+        activateSection(DEFAULT_HASH);
+        scrollToSection(DEFAULT_HASH);
+    });
+
+    updateBackToTopVisibility();
 }
