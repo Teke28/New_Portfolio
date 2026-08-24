@@ -2190,3 +2190,25 @@ section {
         transition: none;
     }
 }
+
+/* ============================================================
+   MOBILE HOME PHOTO REFINEMENT
+   - Phone-only sizing and spacing; desktop and tablet remain unchanged
+   ============================================================ */
+@media (max-width: 600px) {
+    .home {
+        justify-content: flex-start;
+        gap: 2.5rem;
+        padding-top: 8.8rem;
+    }
+
+    .home-img .img-box {
+        width: min(82vw, 360px);
+        height: min(82vw, 360px);
+        flex: 0 0 auto;
+    }
+
+    .home-img .img-box .img-item img {
+        object-fit: cover;
+    }
+}
