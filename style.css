@@ -1823,3 +1823,370 @@ body.cert-modal-open {
         animation: none;
     }
 }
+
+/* ============================================================
+   PREMIUM THEME LAYER
+   - Visual refinements only; preserves existing structure and behavior
+   ============================================================ */
+:root {
+    --bg-color: #111318;
+    --second-bg-color: #191d25;
+    --main-color: #8ef05a;
+    --white-color: #f5f7fb;
+    --disabled-color: rgba(245, 247, 251, 0.28);
+    --surface-color: rgba(255, 255, 255, 0.045);
+    --surface-hover: rgba(255, 255, 255, 0.075);
+    --border-color: rgba(255, 255, 255, 0.1);
+    --shadow-color: rgba(0, 0, 0, 0.28);
+}
+
+body {
+    background:
+        radial-gradient(circle at 14% 12%, rgba(142, 240, 90, 0.07), transparent 25%),
+        var(--bg-color);
+    line-height: 1.65;
+}
+
+header {
+    height: 8.4rem;
+    background: rgba(17, 19, 24, 0.78);
+    border-bottom: 0.1rem solid transparent;
+    box-shadow: none;
+    backdrop-filter: blur(1.6rem);
+    -webkit-backdrop-filter: blur(1.6rem);
+}
+
+header.active {
+    border-bottom-color: var(--border-color);
+}
+
+.logo {
+    font-size: 2.8rem;
+    letter-spacing: -0.08rem;
+}
+
+nav a {
+    position: relative;
+    margin-left: clamp(1.1rem, 1.8vw, 2.8rem);
+    font-size: 1.5rem;
+    letter-spacing: 0.01em;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: -0.9rem;
+    left: 0;
+    height: 0.16rem;
+    border-radius: 999px;
+    background: var(--main-color);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+}
+
+nav a:hover::after,
+nav a.active::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+section {
+    padding: 11.5rem 9% 5rem;
+    scroll-margin-top: 10rem;
+}
+
+.home {
+    gap: clamp(4rem, 7vw, 9rem);
+}
+
+.home-detail h1,
+.heading,
+.resume-box h2,
+.contact-box h2 {
+    letter-spacing: -0.06em;
+}
+
+.home-detail h1 {
+    font-size: clamp(4.6rem, 7vw, 7.2rem);
+    line-height: 1.05;
+}
+
+.home-detail h2 {
+    margin: 0.8rem 0;
+    font-size: clamp(2.2rem, 3vw, 3.2rem);
+}
+
+.home-detail p,
+.services-box p,
+.resume-box p,
+.portfolio-box p,
+.contact-box p {
+    color: rgba(245, 247, 251, 0.76);
+    line-height: 1.75;
+}
+
+.btn {
+    padding: 1.15rem 2.4rem;
+    border: 0.1rem solid var(--main-color);
+    border-radius: 1.2rem;
+    box-shadow: 0 0.8rem 2rem rgba(142, 240, 90, 0.18);
+    font-weight: 600;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+}
+
+.btn:hover,
+.btn:focus-visible {
+    background: var(--main-color);
+    box-shadow: 0 1.1rem 2.6rem rgba(142, 240, 90, 0.3);
+    color: var(--bg-color);
+    transform: translateY(-0.25rem);
+}
+
+.home-detail .btn-sci .sci {
+    margin-left: 1.6rem;
+}
+
+.home-detail .btn-sci .sci a {
+    width: 4.4rem;
+    height: 4.4rem;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0.35rem;
+    border: 0.1rem solid var(--border-color);
+    background: var(--surface-color);
+    transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+.home-detail .btn-sci .sci a:hover {
+    border-color: var(--main-color);
+    box-shadow: none;
+    color: var(--bg-color);
+    transform: translateY(-0.35rem);
+}
+
+.home-img .img-box {
+    width: min(32vw, 42rem);
+    height: min(32vw, 42rem);
+    padding: 0.7rem;
+    box-shadow: 0 2rem 6rem var(--shadow-color);
+}
+
+.home-img .img-box .img-item {
+    border-color: rgba(142, 240, 90, 0.55);
+    background: var(--second-bg-color);
+}
+
+.heading {
+    margin-bottom: 4rem;
+    font-size: clamp(3.6rem, 5vw, 5.4rem);
+    line-height: 1.1;
+}
+
+.service-container {
+    gap: 2.2rem;
+}
+
+.service-container .services-box,
+.certificate-container .certificate-box,
+.resume-list .resume-item {
+    border: 0.1rem solid var(--border-color);
+    border-radius: 1.6rem;
+    background: var(--surface-color);
+    box-shadow: 0 1rem 2.8rem rgba(0, 0, 0, 0.12);
+}
+
+.service-container .services-box {
+    padding: 2.8rem;
+}
+
+.service-container .services-box:hover,
+.certificate-container .certificate-box:hover,
+.resume-list .resume-item:hover {
+    border-color: rgba(142, 240, 90, 0.55);
+    background: var(--surface-hover);
+    box-shadow: 0 1.7rem 3.4rem var(--shadow-color);
+    transform: translateY(-0.6rem);
+}
+
+.services-box .icon i {
+    color: var(--main-color);
+}
+
+.services-box .icon a {
+    border: 0.1rem solid var(--border-color);
+    background: transparent;
+}
+
+.services-box .icon a i {
+    color: var(--white-color);
+}
+
+.services-box:hover .icon a {
+    box-shadow: none;
+}
+
+.services-box h3,
+.certificate-box .cert-content h3,
+.resume-item h3 {
+    letter-spacing: -0.035em;
+}
+
+.resume-container,
+.portfolio-container,
+.contact-container {
+    gap: 4rem;
+}
+
+.resume-box .resume-btn {
+    height: auto;
+    min-height: 5.2rem;
+    padding: 1.1rem 1.5rem;
+    border: 0.1rem solid var(--border-color);
+    border-radius: 1rem;
+    background: var(--surface-color);
+    transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+.resume-box .resume-btn:hover,
+.resume-box .resume-btn.active {
+    border-color: rgba(142, 240, 90, 0.62);
+    background: rgba(142, 240, 90, 0.08);
+    color: var(--main-color);
+    transform: translateX(0.35rem);
+}
+
+.resume-list {
+    gap: 1.5rem;
+    padding: 0.2rem 0.7rem 0.2rem 0.2rem;
+}
+
+.resume-list .resume-item {
+    padding: 2rem;
+    transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.resume-detail.skills .resume-item {
+    border-radius: 1.3rem;
+}
+
+.resume-detail.skills .skill-category {
+    grid-column: 1 / -1;
+    margin-top: 1.2rem;
+    color: var(--main-color);
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.resume-detail.skills .skill-category:first-child {
+    margin-top: 0;
+}
+
+.portfolio-box .tech {
+    border-bottom-color: var(--border-color);
+}
+
+.portfolio-box .live-github a,
+.portfolio-box .navigation button {
+    border: 0.1rem solid var(--border-color);
+    border-radius: 1.1rem;
+    background: var(--surface-color);
+}
+
+.portfolio-box .live-github a:hover,
+.portfolio-box .navigation button:hover {
+    border-color: var(--main-color);
+    background: var(--main-color);
+    color: var(--bg-color);
+    transform: translateY(-0.3rem);
+}
+
+.portfolio-box .portfolio-carousel {
+    border: 0.1rem solid var(--border-color);
+    border-radius: 1.8rem;
+    background: var(--surface-color);
+    box-shadow: 0 1.8rem 4rem var(--shadow-color);
+}
+
+.portfolio-carousel .img-item img {
+    border-radius: 1.7rem;
+}
+
+.contact-detail i {
+    border: 0.1rem solid var(--border-color);
+    border-radius: 1.2rem;
+    background: var(--surface-color);
+}
+
+.contact-box form {
+    border: 0.1rem solid var(--border-color);
+    border-radius: 1.8rem;
+    background: var(--surface-color);
+    box-shadow: 0 1.8rem 4rem var(--shadow-color);
+}
+
+.contact-box .field-box input,
+.contact-box .field-box textarea {
+    border: 0.1rem solid var(--border-color);
+    border-radius: 1rem;
+    background: rgba(17, 19, 24, 0.7);
+}
+
+.contact-box .field-box input:focus,
+.contact-box .field-box textarea:focus {
+    border-color: var(--main-color);
+    box-shadow: 0 0 0 0.35rem rgba(142, 240, 90, 0.12);
+}
+
+.site-footer {
+    border-radius: 2rem 2rem 0 0;
+    box-shadow: 0 -1.4rem 4rem rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 992px) {
+    header {
+        height: 7.6rem;
+    }
+
+    section {
+        padding: 10rem 4% 4rem;
+    }
+}
+
+@media (max-width: 768px) {
+    nav {
+        background: rgba(25, 29, 37, 0.96);
+        backdrop-filter: blur(1.6rem);
+        -webkit-backdrop-filter: blur(1.6rem);
+    }
+
+    nav a::after {
+        bottom: -0.45rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .home-detail .btn-sci .sci {
+        margin-left: 1rem;
+    }
+
+    .service-container .services-box,
+    .contact-box form {
+        padding: 2.3rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .service-container .services-box,
+    .certificate-container .certificate-box,
+    .resume-list .resume-item,
+    .btn,
+    .home-detail .btn-sci .sci a,
+    .portfolio-box .live-github a,
+    .portfolio-box .navigation button {
+        transition: none;
+    }
+}
