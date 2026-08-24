@@ -2212,3 +2212,185 @@ section {
         object-fit: cover;
     }
 }
+
+/* ============================================================
+   SPACING OPTIMIZATION LAYER
+   - Keeps Home viewport-balanced while allowing other sections to fit content
+   ============================================================ */
+section {
+    padding: 9.5rem 9% 3.8rem;
+}
+
+section:not(.home) {
+    min-height: 0;
+}
+
+.home {
+    min-height: 100svh;
+    gap: clamp(3rem, 4vw, 6rem);
+}
+
+.home-detail h2 {
+    margin: 0.4rem 0;
+}
+
+.home-detail p {
+    margin: 0.8rem 0 1.8rem;
+}
+
+.home-detail .btn-sci {
+    gap: 1.2rem;
+}
+
+.home-detail .btn-sci .sci {
+    margin-left: 0;
+}
+
+.heading {
+    margin-bottom: 2.8rem;
+}
+
+.service-container {
+    gap: 1.6rem;
+}
+
+.service-container .services-box {
+    padding: 2.3rem;
+}
+
+.services-box h3 {
+    margin: 0.5rem 0 1.1rem;
+}
+
+.certificate-box .cert-content {
+    padding: 1.7rem 2rem 2rem;
+}
+
+.certificate-box .cert-desc {
+    margin: 0.8rem 0 1.4rem;
+}
+
+.resume-container,
+.portfolio-container,
+.contact-container {
+    gap: 3rem;
+}
+
+.resume-box .desc {
+    margin: 1.3rem 0 1.8rem;
+}
+
+.resume-list {
+    gap: 1.2rem;
+    max-height: 40rem;
+}
+
+.resume-list .resume-item {
+    padding: 1.7rem;
+    min-height: 0;
+}
+
+.portfolio-box h3 {
+    margin: 0.5rem 0 1.2rem;
+}
+
+.portfolio-box .tech {
+    margin: 1.4rem 0;
+    padding-bottom: 1.4rem;
+}
+
+.portfolio-box .navigation {
+    margin-top: 1.2rem;
+}
+
+.contact-box .desc {
+    margin: 1rem 0 1.8rem;
+}
+
+.contact-box .contact-detail {
+    margin: 1.3rem 0;
+}
+
+.contact-box form {
+    padding: 2.2rem 2.6rem 2.6rem;
+}
+
+.contact-box .field-box {
+    gap: 1.4rem;
+}
+
+.contact-box .field-box textarea {
+    height: 20rem;
+}
+
+@media (max-width: 992px) {
+    section {
+        padding: 8.6rem 4% 3.2rem;
+    }
+
+    .home {
+        gap: 3.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    section {
+        padding: 8rem 4% 3rem;
+    }
+
+    .home {
+        gap: 2.4rem;
+    }
+
+    .resume-container,
+    .portfolio-container,
+    .contact-container {
+        gap: 2.4rem;
+    }
+}
+
+@media (max-width: 600px) {
+    section {
+        padding: 7.2rem 4% 2.6rem;
+    }
+
+    .home {
+        gap: 2rem;
+        padding-top: 8rem;
+        padding-bottom: 3rem;
+    }
+
+    .heading {
+        margin-bottom: 2.2rem;
+    }
+
+    .service-container {
+        gap: 1.3rem;
+    }
+
+    .service-container .services-box,
+    .contact-box form {
+        padding: 2rem;
+    }
+
+    .certificate-box .cert-content {
+        padding: 1.6rem 1.8rem 1.8rem;
+    }
+
+    .resume-list {
+        max-height: none;
+        padding-right: 0.2rem;
+    }
+
+    .resume-list .resume-item {
+        padding: 1.5rem;
+    }
+
+    .contact-box .field-box {
+        gap: 1.2rem;
+    }
+
+    .contact-box .field-box textarea {
+        height: 16rem;
+    }
+}
